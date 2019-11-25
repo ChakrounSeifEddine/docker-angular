@@ -6,5 +6,6 @@ WORKDIR '/app'
 COPY package.json /app
 
 RUN npm install -g 
+RUN npm install --save-dev @angular-devkit/build-angular
 COPY . .
 CMD ["npm","run","start"]
