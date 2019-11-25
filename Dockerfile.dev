@@ -1,0 +1,19 @@
+FROM node:alpine
+
+ENV HTTP_PROXY='$HTTP_PROXY' 
+ENV HTTPS_PROXY='$HTTPS_PROXY' 
+ENV NO_PROXY='localhost,127.*,nexus2.net-courrier.extra.laposte.fr'
+
+WORKDIR '/app'
+
+
+COPY package.json /app
+
+RUN npm config set registry http://nexus2.net-courrier.extra.laposte.fr/repository/npm-all/
+RUN npm config set strict-ssl false 
+RUN npm config set proxy "http://xpqh581:Sopra123@proxy-internet.net-courrier.extra.laposte.fr:8080"
+RUN npm config set https-proxy "http://xpqh581:Sopra123@proxy-internet.net-courrier.extra.laposte.fr:8080"
+RUN sed -i -e "s/bin\/ash/bin\/sh/" /etc/passwd 
+RUN npm install -g 
+COPY . .
+CMD ["npm","run","start"]
